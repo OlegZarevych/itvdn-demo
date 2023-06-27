@@ -5,6 +5,13 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+  workflow_dispatch:
+    inputs:
+        name:
+          description: 'Person to greet'
+          default: 'World'
+          required: true
+          type: string
 
 env:
   prj_name: itvdn-demo
@@ -13,6 +20,8 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
+        - name: Send greeting
+          run: echo "Hello ${{ inputs.name }}"
         - uses: actions/checkout@v3
         - name: Setup .NET
           uses: actions/setup-dotnet@v3
